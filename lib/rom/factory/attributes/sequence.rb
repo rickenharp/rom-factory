@@ -5,6 +5,10 @@ module ROM::Factory
     class Sequence
       attr_reader :name, :count, :block
 
+      def transient?
+        false
+      end
+
       def initialize(name, &block)
         @name = name
         @count = 0

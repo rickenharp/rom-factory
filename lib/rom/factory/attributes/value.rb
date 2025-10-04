@@ -6,6 +6,10 @@ module ROM::Factory
     class Value
       attr_reader :name, :value
 
+      def transient?
+        false
+      end
+
       # @api private
       def initialize(name, value)
         @name = name

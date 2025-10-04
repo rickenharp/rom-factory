@@ -642,6 +642,24 @@ RSpec.describe ROM::Factory do
     end
   end
 
+  context "transient" do
+    it "supports transient values" do
+      factories.define(:user, relation: :users) do |f|
+        f.email "janjiss@gmail.com"
+        f.password_hash {|password| password.reverse}
+        f.transient :password, "secret"
+        f.first_name "Janis"
+        f.last_name "Miezitis"
+        f.created_at Time.now
+        f.updated_at Time.now
+      end
+
+      user = factories[:user]
+
+      expect(user.password_hash).to eq("terces")
+    end
+  end
+
   context "timestamps" do
     it "creates timestamps, created_at and updated_at, based on callable property" do
       factories.define(:user, relation: :users) do |f|

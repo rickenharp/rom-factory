@@ -150,6 +150,10 @@ module ROM
         )._attributes
       end
 
+      def transient(name, *args, &block)
+        define_transient_attr(name, *args, &block)
+      end
+
       # Create an association attribute
       #
       # @example belongs-to
@@ -217,6 +221,15 @@ module ROM
             attributes::Callable.new(name, self, block)
           else
             attributes::Value.new(name, *args)
+          end
+      end
+
+      def define_transient_attr(name, *args, &block)
+        _attributes <<
+          if block
+            attributes::TransientCallable.new(name, self, block)
+          else
+            attributes::TransientValue.new(name, *args)
           end
       end
 

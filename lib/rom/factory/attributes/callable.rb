@@ -6,6 +6,10 @@ module ROM::Factory
     class Callable
       attr_reader :name, :dsl, :block
 
+      def transient?
+        false
+      end
+
       # @api private
       def initialize(name, dsl, block)
         @name = name

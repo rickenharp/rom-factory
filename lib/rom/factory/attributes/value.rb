@@ -4,16 +4,13 @@ module ROM::Factory
   module Attributes
     # @api private
     class Value
-      attr_reader :name, :value
-
-      def transient?
-        false
-      end
+      attr_reader :name, :value, :transient
 
       # @api private
-      def initialize(name, value)
+      def initialize(name, value, transient: false)
         @name = name
         @value = value
+        @transient = transient
       end
 
       # @api private

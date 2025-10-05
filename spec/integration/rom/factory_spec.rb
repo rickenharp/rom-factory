@@ -647,7 +647,47 @@ RSpec.describe ROM::Factory do
       factories.define(:user, relation: :users) do |f|
         f.email "janjiss@gmail.com"
         f.password_hash {|password| password.reverse}
-        f.transient :password, "secret"
+        f.transient do |t|
+          t.password "secret"
+        end
+        f.first_name "Janis"
+        f.last_name "Miezitis"
+        f.created_at Time.now
+        f.updated_at Time.now
+      end
+
+      user = factories[:user]
+
+      expect(user.password_hash).to eq("terces")
+    end
+
+    it "supports transient sequences" do
+      factories.define(:user, relation: :users) do |f|
+        f.email "janjiss@gmail.com"
+        f.password_hash {|password| password.reverse}
+        f.transient do |t|
+          t.sequence(:password) { |n| "password#{n}" }
+        end
+        f.first_name "Janis"
+        f.last_name "Miezitis"
+        f.created_at Time.now
+        f.updated_at Time.now
+      end
+
+      user1 = factories[:user]
+      user2 = factories[:user]
+
+      expect(user1.password_hash).to eq("1drowssap")
+      expect(user2.password_hash).to eq("2drowssap")
+    end
+
+    it "supports transient callables" do
+      factories.define(:user, relation: :users) do |f|
+        f.email "janjiss@gmail.com"
+        f.password_hash {|password| password.reverse}
+        f.transient do |t|
+          t.password { %w[sec ret].join }
+        end
         f.first_name "Janis"
         f.last_name "Miezitis"
         f.created_at Time.now

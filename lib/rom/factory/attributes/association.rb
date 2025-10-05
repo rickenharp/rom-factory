@@ -15,7 +15,7 @@ module ROM::Factory
       class Core
         attr_reader :assoc, :options, :traits
 
-        def transient?
+        def transient
           false
         end
 

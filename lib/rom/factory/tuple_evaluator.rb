@@ -131,7 +131,7 @@ module ROM
       end
 
       def transients
-        attributes.select(&:transient?)
+        attributes.select(&:transient)
       end
 
       # @api private

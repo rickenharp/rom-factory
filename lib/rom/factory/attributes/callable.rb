@@ -4,17 +4,14 @@ module ROM::Factory
   module Attributes
     # @api private
     class Callable
-      attr_reader :name, :dsl, :block
-
-      def transient?
-        false
-      end
+      attr_reader :name, :dsl, :block, :transient
 
       # @api private
-      def initialize(name, dsl, block)
+      def initialize(name, dsl, block, transient: false)
         @name = name
         @dsl = dsl
         @block = block
+        @transient = transient
       end
 
       # @api private

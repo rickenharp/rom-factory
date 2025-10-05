@@ -3,15 +3,12 @@
 module ROM::Factory
   module Attributes
     class Sequence
-      attr_reader :name, :count, :block
+      attr_reader :name, :count, :block, :transient
 
-      def transient?
-        false
-      end
-
-      def initialize(name, &block)
+      def initialize(name, transient: false, &block)
         @name = name
         @count = 0
+        @transient = transient
         @block = block
       end
 

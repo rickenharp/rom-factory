@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "dry-struct", "~> 1.7"
   spec.add_dependency "faker", ">= 2.0", "< 4"
   spec.add_dependency "rom-core", "~> 5.4"
+  spec.add_dependency "tsort", "~> 0.2"
 end
